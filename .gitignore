@@ -1,0 +1,6 @@
+/vendor/
+.phpunit.result.cache
+.idea/
+/logs/*
+!/logs/README.md
+/nbproject/

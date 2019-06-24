@@ -1,0 +1,63 @@
+version: '3.6'
+
+services:
+
+  mysql:
+    container_name: example_mysql
+    image: mysql:5.7
+    ports:
+      - 3306
+    restart: always
+    environment:
+      - MYSQL_DATABASE=example
+      - MYSQL_USER=myuser
+      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=docker
+    volumes:
+      - ./docker/mysql/data.sql:/docker-entrypoint-initdb.d/data.sql
+    networks:
+      - example_network
+
+  rabbitmq:
+    container_name: example_rabbitmq
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    networks:
+      - example_network
+
+  php-fpm:
+    container_name: example_php-fpm
+    build:
+      context: ./docker/php-fpm
+    volumes:
+      - ./:/var/www/example
+    networks:
+      - example_network
+  nginx:
+    container_name: example_nginx
+    build:
+      context: ./docker/nginx
+    volumes:
+      - ./:/var/www/example
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/sites/:/etc/nginx/sites-available
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d
+    depends_on:
+      - php-fpm
+      - rabbitmq
+      - mysql
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - example_network
+
+networks:
+  example_network:
+    name: example_network
