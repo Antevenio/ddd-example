@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Antevenio\DddExample\Actions;
+namespace Antevenio\DddExample\Application;
 
 interface ActionBus
 {

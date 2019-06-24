@@ -3,7 +3,7 @@
 
 namespace Antevenio\DddExample\Infrastructure\Ui\Console\Command;
 
-use Antevenio\DddExample\Actions\ActionBus;
+use Antevenio\DddExample\Application\ActionBus;
 use Antevenio\DddExample\Application\Actions\GetUserActionRequest;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

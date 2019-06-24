@@ -1,6 +1,6 @@
 <?php
 
-namespace Antevenio\DddExample\Infrastructure\Ui\Http;
+namespace Antevenio\DddExample\Infrastructure\Ui\Http\Handlers;
 
 use Crell\ApiProblem\ApiProblem;
 use Crell\ApiProblem\HttpConverter;

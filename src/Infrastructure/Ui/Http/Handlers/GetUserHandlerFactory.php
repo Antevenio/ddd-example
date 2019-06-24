@@ -2,7 +2,7 @@
 
 namespace Antevenio\DddExample\Infrastructure\Ui\Http\Handlers;
 
-use Antevenio\DddExample\Actions\ActionBus;
+use Antevenio\DddExample\Application\ActionBus;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 

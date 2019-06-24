@@ -4,7 +4,7 @@
 namespace Antevenio\DddExample\Domain\Model\User;
 
 use Antevenio\DddExample\Domain\Event\DomainEventPublisher;
-use Antevenio\DddExample\Infrastructure\Model\Assert;
+use Assert\Assert;
 use Ramsey\Uuid\Uuid;
 
 class User implements \JsonSerializable

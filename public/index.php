@@ -2,7 +2,7 @@
 
 define(
     'APPLICATION_ENV',
-    getenv('APPLICATION_ENV') ?  getenv('APPLICATION_ENV') : 'development'
+    getenv('APPLICATION_ENV') ?  getenv('APPLICATION_ENV') : 'docker'
 );
 if (!defined('APPLICATION_PATH')) {
     define('APPLICATION_PATH', realpath(__DIR__ . '/../'));

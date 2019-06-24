@@ -1,21 +1,18 @@
 <?php
 
-namespace Antevenio\DddExample;
+namespace Antevenio\DddExample\Infrastructure;
 
 use Bnf\Slim3Psr15\CallableResolver;
-use Antevenio\DddExample\Domain\Email\EmailService;
+use Antevenio\DddExample\Infrastructure\Domain\Model\PdoUserRepository;
 use Antevenio\DddExample\Infrastructure\Email\EmailServiceFactory;
-use Antevenio\DddExample\Infrastructure\EventConfigProvider;
-use Antevenio\DddExample\Infrastructure\LoggerFactory;
 use Antevenio\DddExample\Infrastructure\Repository\PdoServiceFactory;
-use Antevenio\DddExample\Infrastructure\Ui\Http\ErrorApiProblemHandlerFactory;
+use Antevenio\DddExample\Infrastructure\Ui\Http\Handlers\ErrorApiProblemHandlerFactory;
 use Antevenio\DddExample\Infrastructure\Ui\Http\Middlewares\LoggerMiddleware;
 use Antevenio\DddExample\Infrastructure\Ui\Http\Middlewares\LoggerMiddlewareFactory;
 use Antevenio\DddExample\Application\Actions\CreateUserActionRequest;
 use Antevenio\DddExample\Application\Actions\CreateUserAction;
 use Antevenio\DddExample\Application\Actions\GetUserActionRequest;
 use Antevenio\DddExample\Application\Actions\GetUserAction;
-use Antevenio\DddExample\Infrastructure\Repository\PdoUserRepository;
 use Antevenio\DddExample\Infrastructure\Repository\PdoExampleService;
 use Antevenio\DddExample\Infrastructure\Ui\Console\Command\AllEventsConsumerCommand;
 use Antevenio\DddExample\Infrastructure\Ui\Console\Command\AllEventsConsumerCommandFactory;
@@ -53,7 +50,7 @@ class App
     private function getConfig()
     {
         return Factory::fromFiles(
-            glob(sprintf(__DIR__ . '/../config/{,*.}{global,%s,local}.php', APPLICATION_ENV), GLOB_BRACE)
+            glob(sprintf(__DIR__ . '/../../config/{,*.}{global,%s,local}.php', APPLICATION_ENV), GLOB_BRACE)
         );
     }
 
@@ -97,8 +94,7 @@ class App
             'callableResolver' => function (ContainerInterface $container) {
                 return new CallableResolver($container);
             },
-            LoggerMiddleware::class => new LoggerMiddlewareFactory(),
-            EmailService::class => new EmailServiceFactory(),
+            LoggerMiddleware::class => new LoggerMiddlewareFactory()
         ];
     }
 

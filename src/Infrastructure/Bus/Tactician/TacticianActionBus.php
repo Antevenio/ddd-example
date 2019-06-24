@@ -3,7 +3,7 @@
 
 namespace Antevenio\DddExample\Infrastructure\Bus\Tactician;
 
-use Antevenio\DddExample\Actions\ActionBus;
+use Antevenio\DddExample\Application\ActionBus;
 use League\Tactician\CommandBus as Tactician;
 
 class TacticianActionBus implements ActionBus

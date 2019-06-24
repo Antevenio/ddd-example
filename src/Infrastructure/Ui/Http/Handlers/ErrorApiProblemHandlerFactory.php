@@ -1,6 +1,6 @@
 <?php
 
-namespace Antevenio\DddExample\Infrastructure\Ui\Http;
+namespace Antevenio\DddExample\Infrastructure\Ui\Http\Handlers;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;

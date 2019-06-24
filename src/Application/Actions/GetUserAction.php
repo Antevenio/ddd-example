@@ -4,8 +4,8 @@
 namespace Antevenio\DddExample\Application\Actions;
 
 use Antevenio\DddExample\Domain\Event\DomainEventPublisher;
-use Antevenio\DddExample\Domain\UserRepository;
-use Antevenio\DddExample\Domain\UserWasRead;
+use Antevenio\DddExample\Domain\Model\User\UserRepository;
+use Antevenio\DddExample\Domain\Model\User\UserWasRead;
 
 class GetUserAction
 {

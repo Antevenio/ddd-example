@@ -4,8 +4,8 @@
 namespace Antevenio\DddExample\Application\Actions;
 
 use Antevenio\DddExample\Application\Actions\Action;
-use Antevenio\DddExample\Domain\User;
-use Antevenio\DddExample\Domain\UserRepository;
+use Antevenio\DddExample\Domain\Model\User\User;
+use Antevenio\DddExample\Domain\Model\User\UserRepository;
 
 class CreateUserAction
 {

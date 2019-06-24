@@ -4,3 +4,4 @@
 /logs/*
 !/logs/README.md
 /nbproject/
+/tests/report

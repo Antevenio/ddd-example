@@ -35,6 +35,7 @@ services:
     container_name: example_php-fpm
     build:
       context: ./docker/php-fpm
+    user: "$UID"
     volumes:
       - ./:/var/www/example
     networks:

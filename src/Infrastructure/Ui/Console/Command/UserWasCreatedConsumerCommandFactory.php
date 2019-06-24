@@ -3,9 +3,8 @@
 
 namespace Antevenio\DddExample\Infrastructure\Ui\Console\Command;
 
-use Antevenio\DddExample\Domain\Email\EmailService;
+use Antevenio\DddExample\Domain\Model\User\UserWasCreated;
 use Antevenio\DddExample\Infrastructure\EventNotification\AmqpEventSubscriber;
-use Antevenio\DddExample\Domain\UserWasCreated;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 
@@ -26,7 +25,6 @@ class UserWasCreatedConsumerCommandFactory
             self::QUEUE_NAME,
             self::BINDING_KEYS
         );
-        $emailService = $container->get(EmailService::class);
-        return new UserWasCreatedConsumerCommand($logger, $amqpEventSubscriber, $emailService);
+        return new UserWasCreatedConsumerCommand($logger, $amqpEventSubscriber);
     }
 }

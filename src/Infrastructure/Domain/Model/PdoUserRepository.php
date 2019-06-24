@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Antevenio\DddExample\Infrastructure\Repository;
+namespace Antevenio\DddExample\Infrastructure\Domain\Model;
 
 use Antevenio\DddExample\Domain\Model\User\UserNotFoundException;
 use PDO;

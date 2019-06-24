@@ -3,7 +3,7 @@
 
 namespace Antevenio\DddExample\Infrastructure\Ui\Console\Command;
 
-use Antevenio\DddExample\Actions\ActionBus;
+use Antevenio\DddExample\Application\ActionBus;
 use Psr\Container\ContainerInterface;
 
 class GetUserCommandFactory

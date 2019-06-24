@@ -4,7 +4,7 @@
 namespace Antevenio\DddExample\Infrastructure;
 
 
-use Antevenio\DddExample\Actions\ActionBus;
+use Antevenio\DddExample\Application\ActionBus;
 use Antevenio\DddExample\Domain\Event\EventNotification;
 use Antevenio\DddExample\Domain\Event\EventStore;
 use Antevenio\DddExample\Infrastructure\Bus\Tactician\TacticianActionBusFactory;
