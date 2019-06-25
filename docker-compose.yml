@@ -19,8 +19,8 @@ services:
       - example_network
 
   rabbitmq:
-    container_name: example_rabbitmq
     image: rabbitmq:3-management
+    container_name: example_rabbitmq
     environment:
       RABBITMQ_DEFAULT_USER: "guest"
       RABBITMQ_DEFAULT_PASS: "guest"
@@ -30,6 +30,24 @@ services:
       - "5672:5672"
     networks:
       - example_network
+
+  rabbitmq_exporter:
+    image: kbudde/rabbitmq-exporter
+    container_name: example_rabbitmq-exporter
+    depends_on:
+      - rabbitmq
+    ports:
+      - "9999:9090"
+    environment:
+      RABBIT_URL: "http://rabbitmq:15672"
+      RABBIT_USER: "guest"
+      RABBIT_PASSWORD: "guest"
+      PUBLISH_PORT: "9090"
+      OUTPUT_FORMAT: "JSON"
+      LOG_LEVEL: "info"
+    networks:
+      - example_network
+
 
   php-fpm:
     container_name: example_php-fpm
@@ -53,12 +71,53 @@ services:
       - php-fpm
       - rabbitmq
       - mysql
+      - redis
     ports:
       - "80:80"
       - "443:443"
     networks:
       - example_network
 
+  prometheus:
+    image: prom/prometheus
+    container_name: example_prometheus
+    depends_on:
+      - nginx
+      - rabbitmq_exporter
+    ports:
+      - 9090:9090
+    volumes:
+      - ./docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - example_network
+
+  grafana:
+    image: grafana/grafana
+    container_name: example_grafana
+    depends_on:
+      - prometheus
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./docker/grafana/provisioning/:/etc/grafana/provisioning/
+    env_file:
+      - ./docker/grafana/config.monitoring
+    networks:
+      - example_network
+    restart: always
+
+  redis:
+    image: redis
+    container_name: example_redis
+    ports:
+      - 63790:6379
+    networks:
+      - example_network
+
 networks:
   example_network:
     name: example_network
+
+volumes:
+  grafana_data:

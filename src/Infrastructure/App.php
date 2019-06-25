@@ -2,6 +2,12 @@
 
 namespace Antevenio\DddExample\Infrastructure;
 
+use Antevenio\DddExample\Infrastructure\Metrics\PrometheusCollectorRegistry;
+use Antevenio\DddExample\Infrastructure\Metrics\PrometheusCollectorRegistryFactory;
+use Antevenio\DddExample\Infrastructure\Ui\Http\Handlers\MetricsHandler;
+use Antevenio\DddExample\Infrastructure\Ui\Http\Handlers\MetricsHandlerFactory;
+use Antevenio\DddExample\Infrastructure\Ui\Http\Middlewares\LatencyMetricMiddelwareFactory;
+use Antevenio\DddExample\Infrastructure\Ui\Http\Middlewares\LatencyMetricMiddleware;
 use Bnf\Slim3Psr15\CallableResolver;
 use Antevenio\DddExample\Infrastructure\Domain\Model\PdoUserRepository;
 use Antevenio\DddExample\Infrastructure\Email\EmailServiceFactory;
@@ -94,7 +100,9 @@ class App
             'callableResolver' => function (ContainerInterface $container) {
                 return new CallableResolver($container);
             },
-            LoggerMiddleware::class => new LoggerMiddlewareFactory()
+            LoggerMiddleware::class => new LoggerMiddlewareFactory(),
+            PrometheusCollectorRegistry::class => new PrometheusCollectorRegistryFactory(),
+            LatencyMetricMiddleware::class => new LatencyMetricMiddelwareFactory(),
         ];
     }
 
@@ -122,6 +130,7 @@ class App
         return [
             CreateUserHandler::class => new CreateUserHandlerFactory(),
             GetUserHandler::class => new GetUserHandlerFactory(),
+            MetricsHandler::class => new MetricsHandlerFactory()
         ];
     }
 
@@ -138,13 +147,15 @@ class App
     private function addRoutes(): void
     {
         $this->app->add(LoggerMiddleware::class);
-        $this->app->post('/user', CreateUserHandler::class);
-        $this->app->get('/user', GetUserHandler::class);
+        $this->app->add(LatencyMetricMiddleware::class);
         $this->app->get('/hello', function ($request, $response, array $args) {
             $response->write('Hello, world!');
             return $response;
         });
-    }
+        $this->app->post('/user', CreateUserHandler::class);
+        $this->app->get('/user', GetUserHandler::class);
+        $this->app->get('/metrics', MetricsHandler::class);
+   }
 
     public function getInstance()
     {

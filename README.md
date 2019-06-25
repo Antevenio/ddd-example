@@ -106,3 +106,8 @@ Notify events to rabbitmq
 docker run --network=example_network --volume $(pwd):/usr/src/app antevenio/example bin/console notify-events
 ```
 
+
+# Rabbitmq / Prometheus / Grafana
+* [Prometheus exporter](https://github.com/kbudde/rabbitmq_exporter)
+* [Rabbitmq Graphana dashboard](https://grafana.com/dashboards/4279)
+
