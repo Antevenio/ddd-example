@@ -53,5 +53,4 @@ class LatencyMetricMiddleware implements MiddlewareInterface
         );
         return $response;
     }
-
 }

@@ -3,7 +3,6 @@
 
 namespace Antevenio\DddExample\Infrastructure\Ui\Http\Middlewares;
 
-
 use Antevenio\DddExample\Infrastructure\Metrics\PrometheusCollectorRegistry;
 use Psr\Container\ContainerInterface;
 
@@ -14,5 +13,4 @@ class LatencyMetricMiddelwareFactory
         $prometheusCollectorRegistry = $container->get(PrometheusCollectorRegistry::class);
         return new LatencyMetricMiddleware($prometheusCollectorRegistry);
     }
-
 }

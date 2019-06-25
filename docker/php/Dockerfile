@@ -13,13 +13,10 @@ RUN apt-get update \
 RUN docker-php-ext-install mysqli pdo pdo_mysql sockets bcmath
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-    && composer config -g gitlab-token.gitlab.antevenio.com VozGoUvGVrASXPveBvx6 \
-    && composer config -g gitlab-domains gitlab.antevenio.com \
     && composer config -g preferred-install dist \
     && composer install --prefer-dist --no-progress --no-suggest --optimize-autoloader --classmap-authoritative  --no-interaction \
     && composer clear-cache \
     && rm -rf /usr/src/php
-
 
 RUN php --version
 

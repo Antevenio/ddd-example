@@ -155,7 +155,7 @@ class App
         $this->app->post('/user', CreateUserHandler::class);
         $this->app->get('/user', GetUserHandler::class);
         $this->app->get('/metrics', MetricsHandler::class);
-   }
+    }
 
     public function getInstance()
     {

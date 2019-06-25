@@ -3,7 +3,6 @@
 
 namespace Antevenio\DddExample\Infrastructure\Metrics;
 
-
 use Prometheus\CollectorRegistry;
 use Prometheus\RenderTextFormat;
 use Prometheus\Storage\Redis;
@@ -54,7 +53,5 @@ class PrometheusCollectorRegistry
     {
         $renderer = new RenderTextFormat();
         return $renderer->render($this->collectorRegistry->getMetricFamilySamples());
-
     }
-
 }

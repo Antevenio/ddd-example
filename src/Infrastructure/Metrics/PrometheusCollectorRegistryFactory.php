@@ -3,7 +3,6 @@
 
 namespace Antevenio\DddExample\Infrastructure\Metrics;
 
-
 use Psr\Container\ContainerInterface;
 
 class PrometheusCollectorRegistryFactory
@@ -14,5 +13,4 @@ class PrometheusCollectorRegistryFactory
         $config = $container->get('config');
         return new PrometheusCollectorRegistry($config);
     }
-
 }

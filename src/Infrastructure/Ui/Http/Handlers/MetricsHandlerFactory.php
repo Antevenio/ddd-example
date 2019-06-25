@@ -3,7 +3,6 @@
 
 namespace Antevenio\DddExample\Infrastructure\Ui\Http\Handlers;
 
-
 use Antevenio\DddExample\Infrastructure\Metrics\PrometheusCollectorRegistry;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
@@ -17,5 +16,4 @@ class MetricsHandlerFactory
         $prometheusCollectorRegistry = $container->get(PrometheusCollectorRegistry::class);
         return new MetricsHandler($responseFactory, $prometheusCollectorRegistry);
     }
-
 }
