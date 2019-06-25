@@ -15,8 +15,6 @@ services:
       - MYSQL_ROOT_PASSWORD=docker
     volumes:
       - ./docker/mysql/data.sql:/docker-entrypoint-initdb.d/data.sql
-    networks:
-      - example_network
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -28,8 +26,6 @@ services:
     ports:
       - "15672:15672"
       - "5672:5672"
-    networks:
-      - example_network
 
   rabbitmq_exporter:
     image: kbudde/rabbitmq-exporter
@@ -45,9 +41,16 @@ services:
       PUBLISH_PORT: "9090"
       OUTPUT_FORMAT: "JSON"
       LOG_LEVEL: "info"
-    networks:
-      - example_network
 
+  php:
+    container_name: example_php
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    user: "$UID"
+    volumes:
+      - ./:/usr/src/app
+    tty: true
 
   php-fpm:
     container_name: example_php-fpm
@@ -56,8 +59,7 @@ services:
     user: "$UID"
     volumes:
       - ./:/var/www/example
-    networks:
-      - example_network
+
   nginx:
     container_name: example_nginx
     build:
@@ -74,9 +76,6 @@ services:
       - redis
     ports:
       - "80:80"
-      - "443:443"
-    networks:
-      - example_network
 
   prometheus:
     image: prom/prometheus
@@ -88,8 +87,6 @@ services:
       - 9090:9090
     volumes:
       - ./docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-    networks:
-      - example_network
 
   grafana:
     image: grafana/grafana
@@ -103,8 +100,6 @@ services:
       - ./docker/grafana/provisioning/:/etc/grafana/provisioning/
     env_file:
       - ./docker/grafana/config.monitoring
-    networks:
-      - example_network
     restart: always
 
   redis:
@@ -112,12 +107,6 @@ services:
     container_name: example_redis
     ports:
       - 63790:6379
-    networks:
-      - example_network
-
-networks:
-  example_network:
-    name: example_network
 
 volumes:
   grafana_data:
