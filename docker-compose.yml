@@ -70,6 +70,7 @@ services:
       - ./docker/nginx/sites/:/etc/nginx/sites-available
       - ./docker/nginx/conf.d/:/etc/nginx/conf.d
     depends_on:
+      - php
       - php-fpm
       - rabbitmq
       - mysql

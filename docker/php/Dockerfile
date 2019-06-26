@@ -1,3 +1,4 @@
+FROM composer
 FROM php:7.2-cli
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
@@ -9,10 +10,16 @@ RUN apt-get update \
 
 # install mysql ext
 RUN docker-php-ext-install mysqli pdo pdo_mysql sockets bcmath
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+RUN pecl install redis && docker-php-ext-enable redis
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-    && composer config -g preferred-install dist \
-    && rm -rf /usr/src/php
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
+ENV COMPOSER_HOME /var/composer
+RUN mkdir /var/composer
+
+RUN composer global require "hirak/prestissimo" --prefer-dist
+RUN chmod -R ugo+rw /var/composer
 
 RUN php --version
-CMD ["php", "-a"]
+CMD ["composer", "install"]

@@ -45,6 +45,7 @@
     ],
     "cs-check": "phpcs",
     "cs-fix": "phpcbf",
-    "test": "phpunit"
+    "test": "phpunit",
+    "coverage": "phpunit --coverage-text"
   }
 }
