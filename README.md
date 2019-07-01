@@ -75,7 +75,7 @@ Actions: CreateUserAction and GetUserAction
 * Access to **Grafana** (admin/admin) [http://localhost:3000](http://localhost:3000)
 
 # <a name="composer">Composer / Unit tests</a>
-Install dependencias (they are already installed with docker-compose up)
+Install dependencies (they are already installed with docker-compose up)
 ```bash
 docker-compose run php composer install 
 ```
