@@ -1,0 +1,28 @@
+#!/usr/bin/env php
+<?php
+
+define(
+    'APPLICATION_ENV',
+    getenv('APPLICATION_ENV') ?  getenv('APPLICATION_ENV') : 'docker'
+);
+if (!defined('APPLICATION_PATH')) {
+    define('APPLICATION_PATH', realpath(__DIR__ . '/../'));
+}
+
+require __DIR__.'/../vendor/autoload.php';
+
+use Antevenio\DddExample\Infrastructure\Ui\Console\Command;
+use Antevenio\DddExample\Infrastructure\Ui\Console\App as ConsoleApp;
+use Antevenio\DddExample\Infrastructure\App;
+$container = (new App())->getInstance()->getContainer();
+
+$app = new ConsoleApp($container, [
+    'hello-world' => Command\HelloWorldCommand::class,
+    'get-user' => Command\GetUserCommand::class,
+    'create-user' => Command\CreateUserCommand::class,
+    'notify-events' => Command\EventNotificationCommand::class,
+    'user-was-created-consumer' => Command\UserWasCreatedConsumerCommand::class,
+    'all-events-consumer' => Command\AllEventsConsumerCommand::class,
+]);
+$app->run();
+

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="Antevenio">
+    <rule ref="PSR2"/>
+    <exclude-pattern>vendor</exclude-pattern>
+    <exclude-pattern>config</exclude-pattern>
+    <exclude-pattern>public</exclude-pattern>
+    <exclude-pattern>tests/report</exclude-pattern>
+    <file>src</file>
+    <file>tests</file>
+</ruleset>
